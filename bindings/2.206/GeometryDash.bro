@@ -7254,7 +7254,27 @@ class GJBaseGameLayer : cocos2d::CCLayer, TriggerEffectDelegate {
 	TodoReturn swapBackground(int);
 	TodoReturn swapGround(int);
 	TodoReturn swapMiddleground(int);
-	void switchToFlyMode(PlayerObject*, GameObject*, bool, int) = m1 0xf5330, imac 0x118300;
+	void switchToFlyMode(PlayerObject* player, GameObject* object, bool unk1, int objectType) = win inline, m1 0xf5330, imac 0x118300 {
+		player->switchedToMode(static_cast<GameObjectType>(objectType));
+		//auto cameraObject = processCameraObject(object, player);
+		bool unk = false;
+
+		switch (objectType)
+		{
+			case 5:
+				player->toggleFlyMode(true, unk);
+				break;
+			case 0x13:
+				player->toggleBirdMode(true, unk);
+				break;
+			case 0x29:
+				player->toggleSwingMode(true, unk);
+				break;
+			default:
+				player->toggleDartMode(true, unk);
+				break;
+		}
+	}
 	void switchToRobotMode(PlayerObject*, GameObject*, bool);
 	void switchToRollMode(PlayerObject*, GameObject*, bool);
 	void switchToSpiderMode(PlayerObject*, GameObject*, bool);
