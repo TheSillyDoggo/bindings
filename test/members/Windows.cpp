@@ -293,6 +293,8 @@ GEODE_SIZE_CHECK(FontObject, 0x4e8);
 GEODE_SIZE_CHECK(BitmapFontCache, 0x40);
 GEODE_SIZE_CHECK(SecretRewardsLayer, 0x238);
 GEODE_SIZE_CHECK(CurrencySprite, 0x2a8);
+GEODE_SIZE_CHECK(CommunityCreditsPage, 0x298);
+GEODE_SIZE_CHECK(AccountLayer, 0x2d0);
 
 GEODE_MEMBER_CHECK(EditorUI, m_transformState, 0x210);
 
@@ -356,5 +358,8 @@ GEODE_MEMBER_CHECK(GJShaderState, m_prevTime, 0x88);
 GEODE_MEMBER_CHECK(ShaderLayer, m_shader, 0x468);
 GEODE_MEMBER_CHECK(ShaderLayer, m_gameLayer, 0x490);
 GEODE_MEMBER_CHECK(ShaderLayer, m_splitYRangeMultUniform, 0x64c);
+
+GEODE_SIZE_CHECK(CCLightFlash, 0x168);
+GEODE_SIZE_CHECK(CCLightStrip, 0x160);
 
 #endif
