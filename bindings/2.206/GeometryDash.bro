@@ -7387,6 +7387,8 @@ class GJBaseGameLayer : cocos2d::CCLayer, TriggerEffectDelegate {
 				player->toggleDartMode(true, unk);
 				break;
 		}
+
+		toggleGlitter(true);
 	}
 	void switchToRobotMode(PlayerObject*, GameObject*, bool);
 	void switchToRollMode(PlayerObject*, GameObject*, bool);
@@ -10342,7 +10344,9 @@ class HardStreak : cocos2d::CCDrawNode {
 	cocos2d::CCPoint m_currentPoint;
 	float m_waveSize;
 	float m_pulseSize; // win = 0x5c (0x168)
-	// bool m_isSolid;
+	bool m_isSolid;
+	PAD = win 0x1, android 0x1;
+	bool m_drawStreak;
 }
 
 [[link(android)]]
