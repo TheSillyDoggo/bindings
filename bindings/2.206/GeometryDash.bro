@@ -10453,7 +10453,7 @@ class HardStreak : cocos2d::CCDrawNode {
 	float m_waveSize;
 	float m_pulseSize; // win = 0x5c (0x168)
 	bool m_isSolid;
-	PAD = win 0x1, android 0x1;
+	PAD = win 0x1, android 0x1, ios 0x1, mac 0x1;
 	bool m_drawStreak;
 }
 
@@ -13463,7 +13463,7 @@ class PlayerObject : GameObject, AnimatedSpriteDelegate {
 	TodoReturn logValues();
 	void modeDidChange() = imac 0x4201b0, m1 0x395100;
 	TodoReturn performSlideCheck();
-	void placeStreakPoint() = win 0x37e690;
+	void placeStreakPoint() = win 0x37e690; // inlined on m1
 	TodoReturn playBumpEffect(int, GameObject*) = win 0x37da60;
 	TodoReturn playBurstEffect();
 	void playCompleteEffect(bool, bool) = win 0x3621d0, m1 0x1bfebc, imac 0x20eb00, ios 0x63758;
