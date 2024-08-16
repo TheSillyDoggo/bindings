@@ -4307,7 +4307,7 @@ class EnhancedGameObject : GameObject {
 	TodoReturn triggerAnimation();
 	TodoReturn updateRotateAction(float);
 	TodoReturn updateState(int);
-	void updateUserCoin() = win 0x19c930;
+	void updateUserCoin() = win 0x19c930, imac 0x5ca6b0, m1 0x4f958c;
 	TodoReturn waitForAnimationTrigger();
 
 	virtual void customSetup() = win 0x19afb0, m1 0x502290, imac 0x5d5220;
