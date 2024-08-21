@@ -6056,7 +6056,7 @@ class GameObject : CCSpritePlus {
 	TodoReturn parentForZLayer(int, bool, int);
 	TodoReturn perspectiveColorFrame(char const*, int);
 	TodoReturn perspectiveFrame(char const*, int);
-	void playDestroyObjectAnim(GJBaseGameLayer*) = win 0x1a04e0;
+	void playDestroyObjectAnim(GJBaseGameLayer*) = win 0x1a04e0, ios 0x358030, m1 0x201d4c, imac 0x25a310;
 	TodoReturn playPickupAnimation(cocos2d::CCSprite*, float, float, float, float, float, float, float, float, bool, float, float);
 	TodoReturn playPickupAnimation(cocos2d::CCSprite*, float, float, float, float);
 	void playShineEffect() = win 0x18f3f0, imac 0x5c5a90, m1 0x4f4cac;
