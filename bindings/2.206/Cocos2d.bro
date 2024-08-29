@@ -2671,7 +2671,7 @@ class cocos2d {
 	static float ccpLength(cocos2d::CCPoint const&);
 	static cocos2d::CCPoint ccpLerp(cocos2d::CCPoint const&, cocos2d::CCPoint const&, float);
 	static bool ccpLineIntersect(cocos2d::CCPoint const&, cocos2d::CCPoint const&, cocos2d::CCPoint const&, cocos2d::CCPoint const&, float*, float*);
-	static cocos2d::CCPoint ccpNormalize(cocos2d::CCPoint const&);
+	static cocos2d::CCPoint ccpNormalize(cocos2d::CCPoint const&) = m1 0x2e5150, imac 0x356db0;
 	static cocos2d::CCPoint ccpRotateByAngle(cocos2d::CCPoint const&, cocos2d::CCPoint const&, float);
 	static bool ccpSegmentIntersect(cocos2d::CCPoint const&, cocos2d::CCPoint const&, cocos2d::CCPoint const&, cocos2d::CCPoint const&);
 	static float ccpToAngle(cocos2d::CCPoint const&);
