@@ -3567,7 +3567,7 @@ class EditorUI : cocos2d::CCLayer, FLAlertLayerProtocol, ColorSelectDelegate, GJ
 	void constrainGameLayerPosition(float, float) = win 0x11e960;
 	TodoReturn convertKeyBasedOnNeighbors(int, int, cocos2d::CCPoint, cocos2d::CCArray*);
 	TodoReturn convertToBaseKey(int);
-	TodoReturn copyObjects(cocos2d::CCArray*, bool, bool);
+	gd::string copyObjects(cocos2d::CCArray* objects, bool copyColors, bool sort) = win 0x10f0f0, imac 0x385ed0, m1 0x3143c, ios 0x3f1078;
 	TodoReturn copyObjectsDetailed(cocos2d::CCArray*);
 	cocos2d::CCArray* createCustomItems() = win 0xe0c80;
 	TodoReturn createEdgeForObject(GameObject*, int);
@@ -3832,9 +3832,7 @@ class EditorUI : cocos2d::CCLayer, FLAlertLayerProtocol, ColorSelectDelegate, GJ
 	virtual void scaleXChanged(float, bool) = win 0x111250, m1 0x3b094, imac 0x3fdd0;
 	virtual void scaleYChanged(float, bool) = win 0x111300, m1 0x3b6cc, imac 0x40540;
 	virtual void scaleXYChanged(float, float, bool) = win 0x1113b0, m1 0x3b810, imac 0x40690;
-
-
-	PAD = win 0x40, android32 0x1c, android64 0x38, mac 0x28, ios 0x28;
+PAD = win 0x40, android32 0x1c, android64 0x38, mac 0x28, ios 0x28;
 
 	GJTransformState m_transformState;
 	bool m_isPlayingMusic;
@@ -3860,8 +3858,11 @@ class EditorUI : cocos2d::CCLayer, FLAlertLayerProtocol, ColorSelectDelegate, GJ
 	float m_toolbarHeight;
 	float m_unk244;
 	bool m_updatedSpeedObjects;
+	bool m_unkBool1;
+	bool m_unkBool2;
+	bool m_stickyControlsEnabled;
 
-	PAD = win 0xf, android32 0xf, android64 0xf, mac 0xf, ios 0xf;
+	PAD = win 0xc, android32 0xc, android64 0xc, mac 0xc, ios 0xc;
 	cocos2d::CCArray* m_unk258;
 	PAD = win 0x8, android32 0x8, android64 0x8, mac 0x8, ios 0x8;
 
@@ -3917,7 +3918,8 @@ class EditorUI : cocos2d::CCLayer, FLAlertLayerProtocol, ColorSelectDelegate, GJ
 	ButtonSprite* m_unk31c;
 	ButtonSprite* m_unk320;
 	int m_selectedCreateObjectID;
-	PAD = win 0x10, android32 0x8, android64 0x10, mac 0x10, ios 0x10;
+	void* m_unk324;
+	int m_selectedObjectIndex;
 	cocos2d::CCArray* m_createButtonArray;
 	cocos2d::CCArray* m_customObjectButtonArray;
 	cocos2d::CCArray* m_unknownArray9;
@@ -3925,7 +3927,7 @@ class EditorUI : cocos2d::CCLayer, FLAlertLayerProtocol, ColorSelectDelegate, GJ
 	LevelEditorLayer* m_editorLayer; // win 0x340
 	cocos2d::CCPoint m_swipeStart;
 	cocos2d::CCPoint m_swipeEnd;
-	PAD = mac 0x8, win 0x8, android32 0x8, android64 0x8, ios 0x8;
+	PAD = mac 0x8, win 0x8, android32 0x8, android64 0x8, ios 0x8; // could be a CCPoint
 	cocos2d::CCPoint m_lastTouchPoint;
 	cocos2d::CCPoint m_cameraTest;
 	cocos2d::CCPoint m_clickAtPosition;
@@ -5569,7 +5571,7 @@ class GameManager : GManager {
 	TodoReturn addDuplicateLastFrame(int);
 	TodoReturn addGameAnimation(int, int, float, gd::string, gd::string, int);
 	TodoReturn addIconDelegate(cocos2d::CCObject*, int);
-	TodoReturn addNewCustomObject(gd::string);
+	void addNewCustomObject(gd::string str) = win 0x17a7c0, imac 0x385ed0, m1 0x30fc34, ios 0x329f58;
 	TodoReturn addToGJLog(cocos2d::CCString*);
 	void applicationDidEnterBackground() = ios 0x32de70;
 	TodoReturn applicationWillEnterForeground() = win 0x17fff0;
