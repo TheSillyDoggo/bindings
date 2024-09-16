@@ -3689,7 +3689,7 @@ class EditorUI : cocos2d::CCLayer, FLAlertLayerProtocol, ColorSelectDelegate, GJ
 	void onGroupSticky(cocos2d::CCObject* sender) = win 0x10ec80;
 	void onGroupUp(cocos2d::CCObject* sender) = win 0x11b600;
 	void onLockLayer(cocos2d::CCObject* sender) = win 0x11b790;
-	void onNewCustomItem(cocos2d::CCObject* sender) = win 0xe0530;
+	void onNewCustomItem(cocos2d::CCObject* sender) = win 0xe0530, imac 0x30b10, m1 0x30f28, ios 0x3f0dac;
 	void onPaste(cocos2d::CCObject* sender) = win 0x10f610;
 	void onPasteColor(cocos2d::CCObject* sender) = win 0x110860;
 	void onPasteInPlace(cocos2d::CCObject* sender);
