@@ -3719,7 +3719,13 @@ class EditorUI : cocos2d::CCLayer, FLAlertLayerProtocol, ColorSelectDelegate, GJ
 	TodoReturn processSmartObjectsFromType(int, cocos2d::CCArray*, cocos2d::CCArray*, cocos2d::CCArray*, cocos2d::CCArray*);
 	void recreateButtonTabs() = m1 0x322b8, imac 0x31fb0;
 	void redoLastAction(cocos2d::CCObject*) = win 0x10dd30;
-	void reloadCustomItems() = win 0xe1190;
+	void reloadCustomItems() = win 0xe1190, ios 0x3f13c8, mac inline {
+		GameManager* gm = GameManager::sharedState();
+		int buttonsPerRow = gm->getIntGameVariable("0049");
+		int buttonRows = gm->getIntGameVariable("0050");
+		cocos2d::CCArray* customItems = createCustomItems();
+		m_buttonBar->loadFromItems(customItems,buttonsPerRow,buttonRows,true);
+	}
 	void removeOffset(GameObject*) = win 0x11e840;
 	TodoReturn replaceGroupID(GameObject*, int, int);
 	TodoReturn repositionObjectsToCenter(cocos2d::CCArray*, cocos2d::CCPoint, bool) = win 0x1105b0;
