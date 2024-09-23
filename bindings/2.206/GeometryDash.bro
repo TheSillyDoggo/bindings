@@ -14654,7 +14654,7 @@ class SecretLayer3 : cocos2d::CCLayer, DialogDelegate {
 	void onBack(cocos2d::CCObject* sender);
 	void onChest01(cocos2d::CCObject* sender);
 	void onChest02(cocos2d::CCObject* sender);
-	void onClick(cocos2d::CCObject* sender);
+	void onClick(cocos2d::CCObject* sender) = win 0x3c6980;
 	TodoReturn revealStep1();
 	TodoReturn revealStep2();
 	TodoReturn revealStep3();
