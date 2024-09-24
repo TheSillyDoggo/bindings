@@ -14620,7 +14620,7 @@ class SecretLayer2 : cocos2d::CCLayer, TextInputDelegate, FLAlertLayerProtocol, 
 	TodoReturn nodeWithTag(int); // inlined on windows
 	void onBack(cocos2d::CCObject* sender) = win 0x3c3f00, imac 0x4a8150, m1 0x40b4ec;
 	void onDoor(cocos2d::CCObject* sender) = win 0x3bf060;
-	void onSecretLevel(cocos2d::CCObject* sender) = win 0x3bede0;
+	void onSecretLevel(cocos2d::CCObject* sender) = win 0x3bede0, imac 0x4a9b70, m1 0x40cd08;
 	void onSubmit(cocos2d::CCObject* sender) = win 0x3bf9c0, imac 0x4a81c0, m1 0x40b560;
 	void playCoinEffect() = win 0x3c3a80;
 	static cocos2d::CCScene* scene() = win 0x3bc910;
