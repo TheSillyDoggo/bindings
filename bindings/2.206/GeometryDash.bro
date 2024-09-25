@@ -3433,8 +3433,8 @@ class EditorOptionsLayer : GJOptionsLayer {
 
 	static EditorOptionsLayer* create();
 
-	void onButtonRows(cocos2d::CCObject* sender) = win 0x27f4f0;
-	void onButtonsPerRow(cocos2d::CCObject* sender) = win 0x27f460;
+	void onButtonRows(cocos2d::CCObject* sender) = win 0x27f4f0, m1 0x23ced0, imac 0x29a7d0;
+	void onButtonsPerRow(cocos2d::CCObject* sender) = win 0x27f460, m1 0x23ce48, imac 0x29a750;
 
 	virtual bool init() = m1 0x23c554, imac 0x299e60;
 	virtual void onClose(cocos2d::CCObject* sender) = m1 0x23cf50, imac 0x29a840;
