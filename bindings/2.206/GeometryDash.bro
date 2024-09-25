@@ -14623,7 +14623,7 @@ class SecretLayer2 : cocos2d::CCLayer, TextInputDelegate, FLAlertLayerProtocol, 
 	void onSecretLevel(cocos2d::CCObject* sender) = win 0x3bede0, imac 0x4a9b70, m1 0x40cd08;
 	void onSubmit(cocos2d::CCObject* sender) = win 0x3bf9c0, imac 0x4a81c0, m1 0x40b560;
 	void playCoinEffect() = win 0x3c3a80;
-	static cocos2d::CCScene* scene() = win 0x3bc910;
+	static cocos2d::CCScene* scene() = win 0x3bc910, imac 0x4a6da0, m1 0x40a200;
 	void selectAThread(); // inlined on windows
 	void showCompletedLevel() = win 0x3be090;
 	void showSecretLevel() = win 0x3bdf20;
