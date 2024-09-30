@@ -14015,7 +14015,7 @@ class PlayLayer : GJBaseGameLayer, CCCircleWaveDelegate, CurrencyRewardDelegate,
 	TodoReturn processLoadedMoveActions();
 	TodoReturn queueCheckpoint();
 	void removeAllObjects();
-	void removeCheckpoint(bool) = win 0x394910, imac 0x0xbe340, m1 0xa9a50;
+	void removeCheckpoint(bool) = win 0x394910, imac 0xbe340, m1 0xa9a50;
 	void removeFromGroupOld(GameObject*);
 	void resetLevel() = win 0x3958b0, imac 0xb32d0, m1 0xa01f0, ios 0x11baf4;
 	void resetLevelFromStart() = win 0x395710, imac 0xbf160, m1 0xaa7c0;
