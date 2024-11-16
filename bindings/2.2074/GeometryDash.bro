@@ -7359,7 +7359,7 @@ class GameToolbox {
     static TodoReturn fast_rand();
     static float fast_rand_0_1() = imac 0x4dea80, m1 0x441870;
     static TodoReturn fast_rand_minus1_1();
-    static void fast_srand(uint64_t) = imac 0x4dea30;
+    static void fast_srand(uint64_t) = imac 0x4dea30, m1 0x441830;
     static TodoReturn gen_random(int) = m1 0x464058, imac 0x504920;
     static TodoReturn getDropActionWDelay(float, float, float, cocos2d::CCNode*, cocos2d::SEL_CallFunc);
     static TodoReturn getDropActionWEnd(float, float, float, cocos2d::CCAction*, float);
