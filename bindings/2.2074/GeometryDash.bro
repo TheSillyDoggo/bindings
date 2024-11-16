@@ -15223,7 +15223,7 @@ class PlayLayer : GJBaseGameLayer, CCCircleWaveDelegate, CurrencyRewardDelegate,
     TodoReturn colorObject(int, cocos2d::ccColor3B);
     TodoReturn commitJumps();
     TodoReturn compareStateSnapshot();
-    CheckpointObject* createCheckpoint() = win 0x39e150, imac 0xbbd00;
+    CheckpointObject* createCheckpoint() = win 0x39e150, imac 0xbbd00, m1 0xab024;
     void createObjectsFromSetupFinished() = win 0x396a10, imac 0xb7490, m1 0xa6fc4;
     void delayedFullReset();
     void delayedResetLevel() = win 0x3a1de0, m1 0xaa970, imac 0xbb590;
@@ -15256,7 +15256,7 @@ class PlayLayer : GJBaseGameLayer, CCCircleWaveDelegate, CurrencyRewardDelegate,
     void playPlatformerEndAnimationToPos(cocos2d::CCPoint, bool) = win 0x395430, imac 0xb6fb0;
     TodoReturn playReplay(gd::string);
     void prepareCreateObjectsFromSetup(gd::string&) = win 0x395f80, m1 0x9dac0;
-    void prepareMusic(bool) = imac 0xb3ae0;
+    void prepareMusic(bool) = imac 0xb3ae0, m1 0xa3b18;
     void processCreateObjectsFromSetup() = win 0x396230, m1 0x9de44;
     TodoReturn processLoadedMoveActions();
     TodoReturn queueCheckpoint();
