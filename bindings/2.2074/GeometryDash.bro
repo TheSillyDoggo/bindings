@@ -5067,7 +5067,7 @@ class FMODAudioEngine : cocos2d::CCNode {
     void clearAllAudio() = win 0x552e0, imac 0x3cb330, m1 0x353b90;
     TodoReturn countActiveEffects();
     TodoReturn countActiveMusic();
-    TodoReturn createStream(gd::string);
+    FMOD::Sound* createStream(gd::string) = win 0x5cb70;
     void disableMetering() {
         this->m_metering = false;
     }
@@ -5106,7 +5106,7 @@ class FMODAudioEngine : cocos2d::CCNode {
     bool isEffectLoaded(gd::string path);
     bool isMusicPlaying(gd::string path, int p1) = win 0x59ee0, imac 0x3d4a20, m1 0x35aeb0;
     bool isMusicPlaying(int channel) = win 0x59d00, imac 0x3d48f0, m1 0x35ada4;
-    bool isPersistentMatchPlaying(gd::string, int);
+    bool isPersistentMatchPlaying(gd::string, int) = imac 0x5ad50;
     bool isSoundReady(FMOD::Sound* sound);
     TodoReturn lengthForSound(gd::string path);
     TodoReturn loadAndPlayMusic(gd::string, unsigned int, int);
@@ -5147,7 +5147,7 @@ class FMODAudioEngine : cocos2d::CCNode {
     void playMusic(gd::string path, bool shouldLoop, float fadeInTime, int channel) = win 0x5a110, imac 0x3d4dc0, m1 0x35b20c;
     FMODSound& preloadEffect(gd::string path) = win 0x59260, m1 0x3531c4, imac 0x3ca980;
     void preloadEffectAsync(gd::string path);
-    TodoReturn preloadMusic(gd::string path, bool p1, int p2);
+    FMOD::Sound* preloadMusic(gd::string path, bool p1, int p2) = win 0x5c790, imac 0x3d5220;
     TodoReturn printResult(FMOD_RESULT);
     TodoReturn queuedEffectFinishedLoading(gd::string);
     TodoReturn queuePlayEffect(gd::string, float, float, float, float, bool, bool, int, int, int, int, bool, int, bool, int, float, int) = win 0x57920;
@@ -13212,7 +13212,7 @@ class LoadingCircleSprite : cocos2d::CCSprite {
 
     /// Create a Loading Circle Sprite with a spinning action
     /// @param spinSpeed A speed modifier, higher is faster and lower is slower
-    static LoadingCircleSprite* create(float spinSpeed) = win 0x6bc30, imac 0x4ac190;
+    static LoadingCircleSprite* create(float spinSpeed) = win 0x6bc30, imac 0x4ac190, m1 0x415268;
 
     TodoReturn fadeInCircle(bool, float, float);
     void hideCircle() = win inline, m1 0x415470 {
