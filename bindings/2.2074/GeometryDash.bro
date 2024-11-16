@@ -10509,7 +10509,7 @@ class GJScaleControl : cocos2d::CCLayer {
     }
 
     void finishTouch();
-    void loadValues(GameObject*, cocos2d::CCArray*, gd::unordered_map<int, GameObjectEditorState>&) = win 0x128190, imac 0x3f670;
+    void loadValues(GameObject*, cocos2d::CCArray*, gd::unordered_map<int, GameObjectEditorState>&) = win 0x128190, imac 0x3f670, m1 0x3a07c;
     void onToggleLockScale(cocos2d::CCObject* sender) = win 0x128100;
     float scaleFromValue(float value) = win inline, imac 0x52860, m1 0x49c44 {
         return (m_upperBound - m_lowerBound) * value + m_lowerBound;
