@@ -108,13 +108,8 @@ class cocos2d::CCEaseElasticIn {
 
 [[link(win, android)]]
 class cocos2d::CCEaseElasticOut {
-<<<<<<< HEAD
-    static cocos2d::CCEaseElasticOut* create(cocos2d::CCActionInterval*) = m1 0x45f8d0, imac 0x5001f0;
-    static cocos2d::CCEaseElasticOut* create(cocos2d::CCActionInterval*, float) = m1 0x45f814, imac 0x500130;
-=======
     static cocos2d::CCEaseElasticOut* create(cocos2d::CCActionInterval*) = m1 0x45fb44, imac 0x5001f0;
     static cocos2d::CCEaseElasticOut* create(cocos2d::CCActionInterval*, float) = m1 0x45fa88, imac 0x500130;
->>>>>>> 677fe8800d229b1d0a91db22422d602b7c08800f
 
     // CCEaseElasticOut(cocos2d::CCEaseElasticOut const&);
     // CCEaseElasticOut();
