@@ -324,6 +324,8 @@ GEODE_SIZE_CHECK(SFXFolderObject, 0x78);
 GEODE_SIZE_CHECK(SFXInfoObject, 0x70);
 GEODE_SIZE_CHECK(SFXSearchResult, 0xa0);
 GEODE_SIZE_CHECK(SecretLayer5, 0x290);
+GEODE_SIZE_CHECK(GraphicsReloadLayer, 0x1a8);
+GEODE_SIZE_CHECK(MoreVideoOptionsLayer, 0x2c0);
 
 GEODE_MEMBER_CHECK(EditorUI, m_transformState, 0x210);
 
@@ -395,7 +397,7 @@ GEODE_MEMBER_CHECK(GJShaderState, m_prevTime, 0x88);
 
 GEODE_MEMBER_CHECK(ShaderLayer, m_shader, 0x468);
 GEODE_MEMBER_CHECK(ShaderLayer, m_gameLayer, 0x490);
-GEODE_MEMBER_CHECK(ShaderLayer, m_splitYRangeMultUniform, 0x64c);
+GEODE_MEMBER_CHECK(ShaderLayer, m_splitYRangeMultUniform, 0x664);
 
 GEODE_SIZE_CHECK(CCLightFlash, 0x168);
 GEODE_SIZE_CHECK(CCLightStrip, 0x160);
