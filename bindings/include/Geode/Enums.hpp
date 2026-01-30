@@ -1019,7 +1019,8 @@ enum class GJHttpType {
     DeleteServerLevelList = 0x3E,
     GetNews = 0x3F,
     GetGJSecretReward = 0x40,
-    GetLevelRateInfo = 0x41
+    GetLevelRateInfo = 0x41,
+    RateLevelAdmin = 0x42
 };
 
 enum class DialogChatPlacement {
@@ -1068,13 +1069,19 @@ enum class MoveTargetType {
     YOnly = 2,
 };
 
-// Geode Addition
-enum class LeaderboardState {
+enum class LeaderboardType {
     Default = 0,
     Top100 = 1,
     Global = 2,
     Creator = 3,
     Friends = 4,
+};
+
+enum class LeaderboardStat {
+    Stars = 0,
+    Moons = 1,
+    Demons = 2,
+    UserCoins = 3
 };
 
 // Wylie Addition (https://github.com/Wyliemaster/GD-Decompiled/blob/main/GD/code/headers/Layers/LevelSettingsLayer.h)
@@ -1284,3 +1291,15 @@ namespace GameVar {
     constexpr auto LinkControlsQuickToggle = "0180";
     constexpr auto StaticTraceArrows = "0181";
 }
+
+// frozen archaic versions of enums
+
+#if GEODE_COMP_GD_VERSION < 22080
+enum class LeaderboardState {
+    Default = 0,
+    Top100 = 1,
+    Global = 2,
+    Creator = 3,
+    Friends = 4,
+};
+#endif

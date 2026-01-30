@@ -30,8 +30,8 @@ const char* GameLevelManager::getLenKey(int len) {
     return cocos2d::CCString::createWithFormat("Len%i", len)->getCString();
 }
 
-const char* GameLevelManager::getLevelDownloadKey(int levelID, bool isGauntlet) {
-    return cocos2d::CCString::createWithFormat("%i_%i", levelID, isGauntlet)->getCString();
+const char* GameLevelManager::getLevelDownloadKey(int levelID, bool isGauntlet, int dailyID) {
+    return cocos2d::CCString::createWithFormat("%i_%i_%i", levelID, isGauntlet, dailyID)->getCString();
 }
 
 const char* GameLevelManager::getLevelKey(int levelID) {
@@ -164,6 +164,10 @@ void GameLevelManager::storeUserMessage(GJUserMessage* message) {
 #if defined(GEODE_IS_WINDOWS)
 #include <sys/types.h>
 #include <sys/timeb.h>
+int GameLevelManager::accountIDForUserID(int userID) {
+    return m_userIDtoAccountIDDict->valueForKey(userID)->intValue();
+}
+
 bool GameLevelManager::areGauntletsLoaded() {
     return m_savedGauntlets->count() != 0;
 }
@@ -513,10 +517,6 @@ void GameLevelManager::markListAsDownloaded(int id) {
     this->markLevelAsDownloaded(-id);
 }
 
-void GameLevelManager::onBanUserCompleted(gd::string response, gd::string tag) {
-    if (response != "-1") this->resetTimerForKey("leaderboard_top");
-}
-
 void GameLevelManager::onDeleteServerLevelListCompleted(gd::string response, gd::string tag) {
     m_queuedLists.erase(tag);
     auto responseInt = atoi(response.c_str());
@@ -530,18 +530,6 @@ void GameLevelManager::onDeleteServerLevelListCompleted(gd::string response, gd:
 
 void GameLevelManager::onDownloadLevelCompleted(gd::string response, gd::string tag) {
     this->processOnDownloadLevelCompleted(response, tag, false);
-}
-
-void GameLevelManager::onGetLevelLeaderboardCompleted(gd::string response, gd::string tag) {
-    this->removeDLFromActive(tag.c_str());
-    if (response == "-1") {
-        if (m_leaderboardManagerDelegate) m_leaderboardManagerDelegate->loadLeaderboardFailed(tag.c_str());
-    }
-    else {
-        auto scores = this->createAndGetScores(response, GJScoreType::LevelScore);
-        this->storeSearchResult(scores, " ", tag.c_str());
-        if (m_leaderboardManagerDelegate) m_leaderboardManagerDelegate->loadLeaderboardFinished(scores, tag.c_str());
-    }
 }
 
 void GameLevelManager::onReadFriendRequestCompleted(gd::string response, gd::string tag) {

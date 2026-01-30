@@ -691,14 +691,6 @@ void EditorUI::toggleLockUI(bool lockUI) {
     m_isPaused = lockUI;
 }
 
-void EditorUI::toggleStickyControls(bool enable) {
-    m_stickyControlsEnabled = enable;
-    m_linkBtn->setEnabled(enable);
-          m_linkBtn->setVisible(enable);
-          m_unlinkBtn->setEnabled(enable);
-          m_unlinkBtn->setVisible(enable);
-}
-
 void EditorUI::transformObjectsReset() {
     auto selectedObjects = m_selectedObjects;
     if (!selectedObjects || selectedObjects->count() == 0) {
@@ -746,7 +738,7 @@ void EditorUI::closeLiveHSVSelect() {
 void EditorUI::onAssignNewGroupID() {
     auto selectedObjects = m_selectedObject ? cocos2d::CCArray::createWithObject(m_selectedObject) : m_selectedObjects;
     if (selectedObjects->count() == 0) return;
-    auto groupID = m_editorLayer->getNextFreeGroupID(nullptr);
+    auto groupID = m_editorLayer->getNextFreeGroupID({});
     for (int i = 0; i < selectedObjects->count(); i++) {
         auto obj = static_cast<GameObject*>(selectedObjects->objectAtIndex(i));
         if (obj->addToGroup(groupID) == 1) m_editorLayer->addToGroup(obj, groupID, false);

@@ -363,3 +363,23 @@ class tk_spline {
 	double m_rightValue;
 	bool m_madeMonotonic;
 }
+
+class RecordCheckpoint {
+	int m_index;
+	int m_step;
+	uint64_t m_seed;
+	int m_attempts;
+	int m_unk014;
+	uint64_t m_time;
+	int m_unk020;
+	int m_points;
+	gd::string m_inputs;
+}
+
+class RecordButtonCommand {
+    PlayerButton m_button;
+    bool m_isPush;
+    bool m_isPlayer2;
+    int m_step;
+	int m_unk00c;
+}

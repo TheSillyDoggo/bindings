@@ -1,8 +1,8 @@
 #include <Geode/Geode.hpp>
 
-#if !defined(GEODE_IS_WINDOWS)
-SetupInstantCollisionTriggerPopup::SetupInstantCollisionTriggerPopup() {}
-#endif
+void LevelRateInfoDelegate::rateInfoFinished(int id, gd::string info) {}
+
+void LevelRateInfoDelegate::rateInfoFailed(int id, int response) {}
 
 #if defined(GEODE_IS_WINDOWS) || defined(GEODE_IS_IOS)
 #endif

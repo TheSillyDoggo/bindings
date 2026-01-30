@@ -54,6 +54,10 @@ void GJBaseGameLayer::removeAllCheckpoints() {}
 
 void GJBaseGameLayer::toggleMusicInPractice() {}
 
+void GJBaseGameLayer::processCheckpoints() {}
+
+void GJBaseGameLayer::resetLevel() {}
+
 void GJBaseGameLayer::addToObjectsToShow(GameObject* object) {
     if (m_activeObjectsCount < m_activeObjectsIndex) {
         m_activeObjects[m_activeObjectsIndex] = object;
@@ -239,6 +243,8 @@ void GJBaseGameLayer::restoreDefaultGameplayOffsetY() {
     this->updateGameplayOffsetY(75, false);
 }
 
+void GJBaseGameLayer::setupReplay(gd::string inputs) {}
+
 void GJBaseGameLayer::stopAllGroundActions() {
     m_groundLayer->deactivateGround();
     m_groundLayer2->deactivateGround();
@@ -292,6 +298,8 @@ void GJBaseGameLayer::updateInternalCamOffsetY(float offsetY, float duration, fl
         m_gameState.m_unkPoint26.y = m_gameState.m_unkPoint27.y;
     }
 }
+
+void GJBaseGameLayer::updateReplay() {}
 #endif
 
 #if defined(GEODE_IS_WINDOWS)
@@ -947,12 +955,13 @@ void GJBaseGameLayer::reAddToStickyGroup(GameObject* object) {
 }
 
 void GJBaseGameLayer::recordAction(int button, bool down, bool player2) {
-    if (m_recordInputs && !m_useReplay) {
-        PlayerButtonCommand command;
+    if (m_recordInputs && !m_useReplay && m_queuedRecordedButtons.size() < 100000) {
+        RecordButtonCommand command;
         command.m_button = (PlayerButton)button;
         command.m_isPush = down;
         command.m_isPlayer2 = player2;
         command.m_step = 0;
+        command.m_unk00c = 0;
         m_queuedRecordedButtons.push_back(command);
     }
 }
@@ -1274,8 +1283,8 @@ void GJBaseGameLayer::testInstantCountTrigger(int itemID, int compareCount, int 
     this->toggleGroupTriggered(groupID, activateGroup, remapKeys, uniqueID, controlID);
 }
 
-void GJBaseGameLayer::togglePlayerStreakBlend(bool blend) {
-    if (blend != m_gameState.m_playerStreakBlend) {
+void GJBaseGameLayer::togglePlayerStreakBlend(bool blend, bool force) {
+    if (blend != m_gameState.m_playerStreakBlend || force) {
         m_gameState.m_playerStreakBlend = blend;
         m_player1->updateStreakBlend(blend);
         m_player2->updateStreakBlend(blend);
@@ -1582,14 +1591,6 @@ void GJBaseGameLayer::updateQueuedLabels() {
     }
 }
 
-void GJBaseGameLayer::updateReplay() {
-    if (!m_useReplay) return;
-    for (auto it = m_queuedReplayButtons.begin(); it != m_queuedReplayButtons.end() && it->m_step <= m_gameState.m_commandIndex;) {
-        this->handleButton(it->m_isPush, (int)it->m_button, it->m_isPlayer2);
-        it = m_queuedReplayButtons.erase(it);
-    }
-}
-
 void GJBaseGameLayer::updateSavePositionObjects() {
     if (m_gameState.m_unkUint4 != 0 && m_gameState.m_unkUint4 + 1000 > m_gameState.m_unkUint5) return;
     m_gameState.m_unkUint4 = m_gameState.m_unkUint5;
@@ -1637,6 +1638,10 @@ void GJBaseGameLayer::updateTimeMod(float speed, bool players, bool noEffects) {
         m_gameState.m_timeModRelated = speed;
         m_gameState.m_timeModRelated2 = noEffects;
     }
+}
+
+void GJBaseGameLayer::queueTimeWarp(float timeWarp) {
+    m_gameState.m_unk18c = timeWarp;
 }
 #endif
 
@@ -1714,7 +1719,7 @@ float GJBaseGameLayer::getGroundHeightForMode(int type) {
 }
 #endif
 
-#if defined(GEODE_IS_IOS) || defined(GEODE_IS_MACOS)
+#if defined(GEODE_IS_IOS) || defined(GEODE_IS_MACOS) || defined(GEODE_IS_ANDROID)
 
 void GJBaseGameLayer::moveAreaObject(GameObject* object, float dx, float dy) {
     auto result = this->resetAreaObjectValues(object, true);
@@ -1733,7 +1738,9 @@ void GJBaseGameLayer::moveAreaObject(GameObject* object, float dx, float dy) {
     }
     this->updateObjectSection(object);
 }
+#endif
 
+#if defined(GEODE_IS_ANDROID)
 bool GJBaseGameLayer::resetAreaObjectValues(GameObject* object, bool update) {
     if (m_gameState.m_commandIndex <= object->m_unk4C8) return false;
     if (update) this->updateAreaObjectLastValues(object);
@@ -1780,7 +1787,9 @@ bool GJBaseGameLayer::resetAreaObjectValues(GameObject* object, bool update) {
     else this->updateAreaObjectLastValues(object);
     return result;
 }
+#endif
 
+#if defined(GEODE_IS_ANDROID) || defined(GEODE_IS_MACOS) || defined(GEODE_IS_IOS)
 void GJBaseGameLayer::updateAreaObjectLastValues(GameObject* object) {
     if (object->m_isDecoration2) return;
     if (object->m_unk4C4 != m_gameState.m_commandIndex) {

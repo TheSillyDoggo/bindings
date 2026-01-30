@@ -3,7 +3,8 @@
 LeaderboardsLayer::LeaderboardsLayer() {
     m_list = nullptr;
     m_userScores = nullptr;
-    m_state = LeaderboardState::Default;
+    m_type = LeaderboardType::Default;
+    m_stat = LeaderboardStat::Stars;
     m_topBtn = nullptr;
     m_globalBtn = nullptr;
     m_creatorsBtn = nullptr;
@@ -22,9 +23,9 @@ LeaderboardsLayer::~LeaderboardsLayer() {
     if (glm->m_leaderboardManagerDelegate == this) glm->m_leaderboardManagerDelegate = nullptr;
 }
 
-LeaderboardsLayer* LeaderboardsLayer::create(LeaderboardState state) {
+LeaderboardsLayer* LeaderboardsLayer::create(LeaderboardType type, LeaderboardStat stat) {
     auto ret = new LeaderboardsLayer();
-    if (ret->init(state)) {
+    if (ret->init(type, stat)) {
         ret->autorelease();
         return ret;
     }
@@ -32,10 +33,10 @@ LeaderboardsLayer* LeaderboardsLayer::create(LeaderboardState state) {
     return nullptr;
 }
 
-cocos2d::CCScene* LeaderboardsLayer::scene(LeaderboardState state) {
+cocos2d::CCScene* LeaderboardsLayer::scene(LeaderboardType type, LeaderboardStat stat) {
     auto scene = cocos2d::CCScene::create();
     AppDelegate::get()->m_runningScene = scene;
-    auto layer = LeaderboardsLayer::create(state);
+    auto layer = LeaderboardsLayer::create(type, stat);
     scene->addChild(layer);
     return scene;
 }

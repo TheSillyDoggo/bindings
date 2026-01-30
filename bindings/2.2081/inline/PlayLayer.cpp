@@ -56,6 +56,8 @@ float PlayLayer::getRelativeModNew(cocos2d::CCPoint position, float mod, float o
     return cocos2d::clampf(result / mod, 0.f, 1.f);
 }
 
+void PlayLayer::playReplay(gd::string inputs) {}
+
 void PlayLayer::removeFromGroupOld(GameObject* object) {
     for (int i = 0; i < object->m_groupCount; i++) {
         this->getGroup(object->getGroupID(i))->removeObject(object);
@@ -88,10 +90,6 @@ void PlayLayer::updateScreenRotation(int rotation, bool add, bool convert, float
     if (convert) convertToClosestDirection(angle, 180.f);
     if (angle != m_gameState.m_targetCameraAngle) m_calculateTargetHeightOffset = true;
     GJBaseGameLayer::updateScreenRotation(angle, add, convert, duration, easingType, easingRate, uniqueID, controlID);
-}
-
-void PlayLayer::updateTimeWarp(EffectGameObject* object, float timeWarp) {
-    this->updateTimeWarp(timeWarp);
 }
 #endif
 
@@ -138,7 +136,18 @@ double PlayLayer::getTempMilliTime() {
     _ftime64_s(&current);
     return ((current.time & 0xfffff) * 1000 + current.millitm) / 1000.0;
 }
+#endif
 
+#if defined(GEODE_IS_MACOS)
+#include <sys/timeb.h>
+double PlayLayer::getTempMilliTime() {
+    timeb current;
+    ftime(&current);
+    return ((current.time & 0xfffff) * 1000 + current.millitm) / 1000.0;
+}
+#endif
+
+#if defined(GEODE_IS_WINDOWS)
 void PlayLayer::incrementJumps() {
     m_uncommittedJumps++;
     m_jumps++;
@@ -227,12 +236,6 @@ void PlayLayer::toggleBGEffectVisibility(bool enabled) {
     m_bgEffectDisabled = !enabled;
     if (!enabled) m_glitterParticles->stopSystem();
     else if (m_glitterEnabled) m_glitterParticles->resumeSystem();
-}
-
-void PlayLayer::toggleDebugDraw(bool enabled) {
-    m_isDebugDrawEnabled = enabled;
-    m_debugDrawNode->clear();
-    m_debugDrawNode->setVisible(m_isDebugDrawEnabled && m_isPracticeMode);
 }
 
 void PlayLayer::toggleGhostEffect(int type) {

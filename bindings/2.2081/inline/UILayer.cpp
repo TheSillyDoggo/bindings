@@ -95,20 +95,6 @@ void UILayer::resetAllButtons() {
     this->resetUINodeState();
 }
 
-void UILayer::toggleMenuVisibility(bool visible) {
-    this->resetUINodeState();
-    if (GameManager::sharedState()->getGameVariable("0024")) {
-        static_cast<cocos2d::CCNodeRGBA*>(m_pauseBtn->getNormalImage())->setOpacity(visible ? 75 : 0);
-        this->updateUINodeVisibility(visible && m_inPlatformer);
-    }
-}
-
-void UILayer::togglePlatformerMode(bool platformer) {
-    m_inPlatformer = platformer;
-    this->refreshDpad();
-    this->updateUINodeVisibility(platformer);
-}
-
 void UILayer::updateDualMode(bool dual) {
     if (m_dualMode == dual) return;
     m_dualMode = dual;
