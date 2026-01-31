@@ -145,11 +145,6 @@ int GJBaseGameLayer::getEnterEasingKey(int easingType, float easingRate) {
     }
 }
 
-int GJBaseGameLayer::getPlayerButtonID(int button, bool player2) {
-    if (button < 2 || button > 5) return player2 ? 6 : 1;
-    return player2 ? button + 5 : button;
-}
-
 int GJBaseGameLayer::getPlayTimerFullSeconds() {
     return m_timePlayed;
 }
@@ -224,10 +219,20 @@ void GJBaseGameLayer::playFlashEffect(float duration, int flashes, float unknown
     m_flashNode->runAction(action);
 }
 
+void GJBaseGameLayer::processReplayCheckpoint(int id) {}
+
 void GJBaseGameLayer::removeCustomEnterEffects(int id, bool enter) {
     if (id > 100) return;
     if (enter) m_gameState.m_enterEffectInstanceVectors.erase(id);
     else m_gameState.m_exitEffectInstanceVectors.erase(id);
+}
+
+void GJBaseGameLayer::resetRecordFull() {
+    m_queuedRecordedButtons.clear();
+    m_unk3330.clear();
+    m_unk3370 = 0;
+    m_queuedRecordedButtonsSize = 0;
+    m_currentStep = 0;
 }
 
 void GJBaseGameLayer::resetSongTriggerValues() {
@@ -496,6 +501,18 @@ void GJBaseGameLayer::controlGradientTrigger(GradientTriggerObject* object, GJAc
     }
 }
 
+int GJBaseGameLayer::countCollectedUserCoins() {
+    auto count = 0;
+    cocos2d::CCDictElement* element;
+    cocos2d::CCDictElement* temp;
+    HASH_ITER(hh, m_collectedItems->m_pElements, element, temp) {
+        if (static_cast<GameObject*>(element->getObject())->getType() == GameObjectType::UserCoin) {
+            count++;
+        }
+    }
+    return count;
+}
+
 cocos2d::CCArray* GJBaseGameLayer::createNewKeyframeAnim() {
     auto group = cocos2d::CCArray::create();
     group->setTag(m_keyframeGroup);
@@ -670,6 +687,11 @@ PlayerObject* GJBaseGameLayer::getOtherPlayer(PlayerObject* player) {
     return player->m_uniqueID != m_player1->m_uniqueID ? m_player1 : m_player2;
 }
 
+int GJBaseGameLayer::getPlayerButtonID(int button, bool player2) {
+    if (button < 2 || button > 5) return player2 ? 6 : 1;
+    return player2 ? button + 5 : button;
+}
+
 int GJBaseGameLayer::getPlayTimerMilli() {
     return m_timePlayed * 1000.0;
 }
@@ -697,6 +719,10 @@ TeleportPortalObject* GJBaseGameLayer::getPortalTarget(TeleportPortalObject* obj
 cocos2d::CCPoint GJBaseGameLayer::getPortalTargetPos(TeleportPortalObject* object, GameObject* target, PlayerObject* player) {
     if (target && object->m_objectID != 747) return target->getRealPosition();
     else return { player->getPosition().x, object->getRealPosition().y + object->m_teleportYOffset };
+}
+
+gd::string GJBaseGameLayer::getRecordExtra() {
+    return cocos2d::CCString::createWithFormat("#%s,%i,%i,%i,%i,%s", std::to_string(m_unk32e0).c_str(), m_unk3448, 22, 47, m_level->m_levelVersion, m_unk3428.c_str())->getCString();
 }
 
 void GJBaseGameLayer::getRotateCommandTargets(EnhancedTriggerObject* object, GameObject*& centerObject, GameObject*& targetObject, GameObject*& rotateObject) {
@@ -1154,6 +1180,18 @@ void GJBaseGameLayer::setStartPosObject(StartPosObject* startPos) {
         }
         m_startPosObject = startPos;
     }
+}
+
+bool GJBaseGameLayer::shouldUseSubstepForButton(float dt) {
+    if (!m_clickBetweenSteps) return false;
+    auto next = m_timestamp + dt;
+    for (auto& command : m_queuedButtons) {
+        if (command.m_timestamp < next) return false;
+        if (dt * 0.5 + m_timestamp <= command.m_timestamp && command.m_timestamp < next && this->buttonIsRelevant(command)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void GJBaseGameLayer::sortAllGroupsX() {
@@ -1641,11 +1679,11 @@ void GJBaseGameLayer::updateTimeMod(float speed, bool players, bool noEffects) {
 }
 
 void GJBaseGameLayer::queueTimeWarp(float timeWarp) {
-    m_gameState.m_unk18c = timeWarp;
+    m_gameState.m_queuedTimeWarp = timeWarp;
 }
 #endif
 
-#if defined(GEODE_IS_IOS)
+#if defined(GEODE_IS_ANDROID)
 float GJBaseGameLayer::getAreaObjectValue(EnterEffectInstance* instance, GameObject* object, cocos2d::CCPoint& position, bool& show) {
     auto realPosition = object->getRealPosition();
     float value;
@@ -1676,7 +1714,9 @@ float GJBaseGameLayer::getAreaObjectValue(EnterEffectInstance* instance, GameObj
     result = std::clamp(deadzone != 0.f ? (result - deadzone) / (1.f - deadzone) : result, 0.f, 1.f);
     return instance->m_gameObject->m_inbound ? 1.f - result : result;
 }
+#endif
 
+#if defined(GEODE_IS_ANDROID) || defined(GEODE_IS_IOS)
 float GJBaseGameLayer::getEasedAreaValue(GameObject* object, EnterEffectInstance* instance, float value, bool show, int index) {
     auto enterObject = instance->m_gameObject;
     if (enterObject->m_easeOutEnabled) {
@@ -1696,7 +1736,9 @@ float GJBaseGameLayer::getEasedAreaValue(GameObject* object, EnterEffectInstance
     }
     return this->getEnterEasingValue(value, (int)enterObject->m_easingInType, enterObject->m_easingInRate, enterObject->m_easingInBuffer);
 }
+#endif
 
+#if defined(GEODE_IS_IOS)
 float GJBaseGameLayer::getGroundHeightForMode(int type) {
     while (true) {
         switch (type) {

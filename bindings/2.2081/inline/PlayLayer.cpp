@@ -64,6 +64,10 @@ void PlayLayer::removeFromGroupOld(GameObject* object) {
     }
 }
 
+bool PlayLayer::shouldDebugDraw() {
+    return (m_isDebugDrawEnabled && m_isPracticeMode) || (m_hitboxesOnDeath && m_playerDied);
+}
+
 void PlayLayer::startRecording() {
     m_recordingStopped = false;
 }
@@ -274,12 +278,13 @@ PlayLayer* PlayLayer::create(GJGameLevel* level, bool useReplay, bool dontCreate
 #endif
 
 #if defined(GEODE_IS_IOS)
-
 void PlayLayer::commitJumps() {
     GameStatsManager::sharedState()->incrementStat("1", m_uncommittedJumps);
     m_uncommittedJumps = 0;
 }
+#endif
 
+#if defined(GEODE_IS_ANDROID)
 void PlayLayer::screenFlipObject(GameObject* object) {
     auto factor = m_gameState.m_levelFlipping;
     if (m_cameraFlip == -1.f) factor = 1.f - factor;
