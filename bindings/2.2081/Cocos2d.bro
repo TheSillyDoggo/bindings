@@ -943,10 +943,10 @@ class cocos2d::CCDirector : cocos2d::CCObject, cocos2d::TypeInfo {
     void setGLDefaultValues() = imac 0x482b30, m1 0x3e8a74, ios 0x175408;
     void setNextDeltaTimeZero(bool);
     void setNextScene() = imac 0x483290, m1 0x3e9110, ios 0x175730;
-    void setNotificationNode(cocos2d::CCNode*) = imac 0x4849e0, m1 0x3ea59c;
+    // void setNotificationNode(cocos2d::CCNode*) = imac 0x4849e0, m1 0x3ea59c;
     void setOpenGLView(cocos2d::CCEGLView*);
     void setProjection(cocos2d::ccDirectorProjection) = imac 0x482be0, m1 0x3e8b04, ios 0x175484;
-    void setupScreenScale(cocos2d::CCSize, cocos2d::CCSize, cocos2d::TextureQuality);
+    void setupScreenScale(cocos2d::CCSize, cocos2d::CCSize, cocos2d::TextureQuality) = m1 0x3e9674, imac 0x483890, ios 0x175b74;
     // void setSceneReference(cocos2d::CCScene*);
     // void setSmoothFix(bool);
     // void setSmoothFixCheck(bool);
@@ -955,7 +955,7 @@ class cocos2d::CCDirector : cocos2d::CCObject, cocos2d::TypeInfo {
     void showStats() = imac 0x4833c0, m1 0x3e9230;
     void toggleShowFPS(bool, gd::string, cocos2d::CCPoint) = imac 0x483750, m1 0x3e9568, ios 0x175a68;
     void updateContentScale(cocos2d::TextureQuality) = imac 0x483b70, m1 0x3e9914, ios 0x175c84;
-    void updateScreenScale(cocos2d::CCSize);
+    void updateScreenScale(cocos2d::CCSize) = m1 0x3e9864, imac 0x483aa0, ios 0x175bd4;
     void willSwitchToScene(cocos2d::CCScene*) = imac 0x4840b0, m1 0x3e9d14, ios 0x175ea4;
 }
 
@@ -2023,12 +2023,12 @@ class cocos2d::CCLayer : cocos2d::CCNode, cocos2d::CCTouchDelegate, cocos2d::CCA
     // cocos2d::CCScriptHandlerEntry* getScriptAccelerateHandlerEntry();
     // cocos2d::CCScriptHandlerEntry* getScriptKeypadHandlerEntry();
     // cocos2d::CCTouchScriptHandlerEntry* getScriptTouchHandlerEntry();
-    int excuteScriptTouchHandler(int, cocos2d::CCSet*) = imac 0x4b08c0, m1 0x4126f4;
-    int excuteScriptTouchHandler(int, cocos2d::CCTouch*) = imac 0x4b0880, m1 0x4126ac;
-    void registerScriptAccelerateHandler(int) = imac 0x4b0b30, m1 0x412970;
-    void registerScriptKeypadHandler(int) = imac 0x4b0ce0, m1 0x412b14;
-    void unregisterScriptAccelerateHandler() = imac 0x4b0340, m1 0x412278;
-    void unregisterScriptKeypadHandler() = imac 0x4b0310, m1 0x41224c;
+    int excuteScriptTouchHandler(int, cocos2d::CCSet*) = imac 0x4b08c0, m1 0x4126f4, ios inline;
+    int excuteScriptTouchHandler(int, cocos2d::CCTouch*) = imac 0x4b0880, m1 0x4126ac, ios inline;
+    void registerScriptAccelerateHandler(int) = imac 0x4b0b30, m1 0x412970, ios inline;
+    void registerScriptKeypadHandler(int) = imac 0x4b0ce0, m1 0x412b14, ios inline;
+    void unregisterScriptAccelerateHandler() = imac 0x4b0340, m1 0x412278, ios inline;
+    void unregisterScriptKeypadHandler() = imac 0x4b0310, m1 0x41224c, ios inline;
 
     bool m_bTouchEnabled;
     bool m_bAccelerometerEnabled;
@@ -2065,9 +2065,9 @@ class cocos2d::CCLayerColor : cocos2d::CCLayerRGBA, cocos2d::CCBlendProtocol {
     virtual cocos2d::ccBlendFunc getBlendFunc() = imac 0x4b28f0, m1 0x41427c, ios 0x1498cc;
 
     void addToVertices(cocos2d::CCPoint, cocos2d::CCPoint, cocos2d::CCPoint) = imac 0x4b3060, m1 0x414880, ios 0x149c10;
-    void changeHeight(float) = imac 0x4b3150, m1 0x414948;
-    void changeWidth(float) = imac 0x4b3110, m1 0x414904;
-    void changeWidthAndHeight(float, float) = imac 0x4b30d0, m1 0x4148c4;
+    void changeHeight(float) = imac 0x4b3150, m1 0x414948, ios inline;
+    void changeWidth(float) = imac 0x4b3110, m1 0x414904, ios inline;
+    void changeWidthAndHeight(float, float) = imac 0x4b30d0, m1 0x4148c4, ios inline;
     void setVertices(cocos2d::CCPoint, cocos2d::CCPoint, cocos2d::CCPoint) = imac 0x4b3040, m1 0x414864, ios 0x149bf4;
 
     std::array<cocos2d::ccVertex2F, 4> m_pSquareVertices;
@@ -3755,9 +3755,9 @@ class cocos2d::CCScriptEngineManager {
 [[link(win, android)]]
 class cocos2d::CCScriptHandlerEntry : cocos2d::CCObject {
 
-    virtual ~CCScriptHandlerEntry();
+    virtual ~CCScriptHandlerEntry() = m1 0x2a9a88, imac 0x31b960, ios 0x2735a8;
 
-    static cocos2d::CCScriptHandlerEntry* create(int);
+    static cocos2d::CCScriptHandlerEntry* create(int) = m1 0x2a9a18, imac 0x31b900, ios inline;
 }
 
 [[link(win, android)]]

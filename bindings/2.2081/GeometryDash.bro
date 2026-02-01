@@ -7779,6 +7779,9 @@ class GJBaseGameLayer : cocos2d::CCLayer, TriggerEffectDelegate {
     OBB2D* m_obb2;
     gd::vector<gd::unordered_map<int,int>> m_spawnRemapTriggers;
     gd::unordered_map<int, cocos2d::CCPoint> m_uiObjectPositions;
+    android, ios {
+        gd::unordered_set<int> m_allowedButtons;
+    }
     GJEffectManager* m_effectManager;
     cocos2d::CCSpriteBatchNode* m_gameBlendingLayerT5;
     cocos2d::CCSpriteBatchNode* m_fireBlendingLayerT5;
@@ -8082,8 +8085,12 @@ class GJBaseGameLayer : cocos2d::CCLayer, TriggerEffectDelegate {
     gd::vector<void*> m_unk3358;
     int m_queuedRecordedButtonsSize;
     gd::string m_persistentStateString;
-    gd::string m_unk3428;
-    int m_unk3448;
+    gd::string m_savedPersistentStateString;
+    int m_savedAttempts;
+    android, ios {
+        int m_spawnCount;
+        bool m_spawnAbuse;
+    }
     bool m_portalIndicators;
     bool m_orbIndicators;
     cocos2d::CCArray* m_indicatorSprites;
@@ -8820,6 +8827,9 @@ class GJGameLevel : cocos2d::CCNode {
     gd::string m_localBestPoints;
     bool m_savedTime;
     bool m_savedPoints;
+    android, ios {
+        int m_cbsOverride; // 0 none, 1 enabled, 2 disabled
+    }
 }
 
 [[link(android)]]
@@ -9593,6 +9603,9 @@ class GJOptionsLayer : SetupTriggerPopup {
     CCMenuItemSpriteExtra* m_prevButton;
     CCMenuItemSpriteExtra* m_nextButton;
     float m_offset;
+    android, ios {
+        gd::unordered_map<int, CCMenuItemToggler*> m_toggleButtons;
+    }
 }
 
 [[link(android)]]
