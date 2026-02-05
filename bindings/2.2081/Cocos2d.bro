@@ -1934,7 +1934,7 @@ class cocos2d::CCLabelTTF : cocos2d::CCSprite, cocos2d::CCLabelProtocol {
     virtual void setString(char const*) = imac 0x3bdb30, m1 0x33f980, ios 0x6e990;
     virtual char const* getString() = imac 0x3bdd60, m1 0x33fb7c, ios 0x6eae8;
 
-    cocos2d::ccFontDefinition _prepareTextDefinition(bool) = imac 0x3be2a0, m1 0x33fff0, ios inline;
+    cocos2d::ccFontDefinition _prepareTextDefinition(bool) = imac 0x3be2a0, m1 0x33fff0, ios 0x6eb20;
     void _updateWithTextDefinition(cocos2d::ccFontDefinition&, bool) = imac 0x3bda60, m1 0x33f8c8, ios inline;
     char const* description() = imac 0x3bddb0, m1 0x33fbb4, ios inline;
     void disableShadow(bool) = imac 0x3be0f0, m1 0x33fe50, ios inline;
@@ -2492,7 +2492,7 @@ class cocos2d::CCMouseDispatcher : cocos2d::CCObject {
     virtual ~CCMouseDispatcher() = imac 0x570bc0, m1 0x4be990, ios 0x2fe0f4;
 
     void addDelegate(cocos2d::CCMouseDelegate*) = imac 0x570e20, m1 0x4bebec, ios 0x2fe23c;
-    bool dispatchScrollMSG(float, float) = imac 0x570ea0, m1 0x4bec84;
+    bool dispatchScrollMSG(float, float) = imac 0x570ea0, m1 0x4bec84, ios inline;
     void forceAddDelegate(cocos2d::CCMouseDelegate*) = imac 0x570e70, m1 0x4bec48, ios inline;
     void forceRemoveDelegate(cocos2d::CCMouseDelegate*) = imac 0x570d90, m1 0x4beb58, ios 0x2fe1a8;
     void removeDelegate(cocos2d::CCMouseDelegate*) = imac 0x570ce0, m1 0x4bea90, ios 0x2fe160;
@@ -4348,14 +4348,14 @@ class cocos2d::CCTexture2D : cocos2d::CCObject {
     bool initWithETCFile(char const*) = imac 0x4793c0, m1 0x3e01ac;
     bool initWithImage(cocos2d::CCImage*) = imac 0x478620, m1 0x3df40c, ios 0x12d7fc;
     bool initWithPVRFile(char const*) = imac 0x4792e0, m1 0x3e00d8;
-    bool initWithString(char const*, cocos2d::ccFontDefinition*);
-    bool initWithString(char const*, char const*, float) = imac 0x478f30, m1 0x3dfd08;
-    bool initWithString(char const*, char const*, float, cocos2d::CCSize const&, cocos2d::CCTextAlignment, cocos2d::CCVerticalTextAlignment) = imac 0x478f90, m1 0x3dfd78;
+    bool initWithString(char const*, cocos2d::ccFontDefinition*) = m1 0x3dfec4, imac 0x4790d0, ios 0x12db2c;
+    bool initWithString(char const*, char const*, float) = imac 0x478f30, m1 0x3dfd08, ios inline;
+    bool initWithString(char const*, char const*, float, cocos2d::CCSize const&, cocos2d::CCTextAlignment, cocos2d::CCVerticalTextAlignment) = imac 0x478f90, m1 0x3dfd78, ios inline;
     void* keepData(void*, unsigned int);
     void releaseData(void*);
     void releaseGLTexture() = imac 0x478260, m1 0x3df084;
     void setAliasTexParameters() = imac 0x479580, m1 0x3e0370, ios 0x12df80;
-    void setAntiAliasTexParameters();
+    void setAntiAliasTexParameters() = imac 0x4795d0, m1 0x3e03c0, ios 0x12dfd0;
     void setTexParameters(cocos2d::ccTexParams*) = imac 0x4794f0, m1 0x3e02d8, ios 0x12dee8;
     char const* stringForFormat() = imac 0x479620, m1 0x3e0410;
 }
