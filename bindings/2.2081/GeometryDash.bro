@@ -7517,7 +7517,7 @@ class GJBaseGameLayer : cocos2d::CCLayer, TriggerEffectDelegate {
     cocos2d::CCArray* getTargetGroupOrigin(int index, int uniqueID) = win inline, imac 0x13e500, m1 0x113068, ios inline;
     void gravBumpPlayer(PlayerObject* player, EffectGameObject* object) = win inline, imac 0x1283d0, m1 0x1006dc, ios 0x1e90c8;
     void groupStickyObjects(cocos2d::CCArray* objects) = win 0x224b60, imac 0x13de80, m1 0x112ac4, ios 0x1f2d50;
-    void handleButton(bool down, int button, bool isPlayer1, double timestamp) = win 0x2338e0, imac 0x14aba0, m1 0x11d578, ios 0x1fabbc;
+    void handleButton(bool down, int button, bool isPlayer1) = win 0x2338e0, imac 0x14aba0, m1 0x11d578, ios 0x1fabbc;
     bool hasItem(int id) = win inline, imac 0x129410, m1 0x101668, ios 0x1e9b80;
     bool hasUniqueCoin(EffectGameObject* object) = win 0x216700, imac 0x128a10, m1 0x100d0c, ios 0x1e9558;
     void increaseBatchNodeCapacity() = win 0x20cc20, imac 0x115410, m1 0xf013c, ios 0x1dea1c;
