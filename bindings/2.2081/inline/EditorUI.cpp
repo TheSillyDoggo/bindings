@@ -1,4 +1,5 @@
-#include <Geode/Geode.hpp>
+#include <Geode/Bindings.hpp>
+#include <Geode/utils/cocos.hpp>
 
 EditorUI* EditorUI::get() {
     auto lel = LevelEditorLayer::get();
@@ -112,7 +113,7 @@ void EditorUI::playerTouchBegan(cocos2d::CCTouch* touch, cocos2d::CCEvent* event
             }
         }
     }
-    else if (GameManager::sharedState()->getGameVariable("0011")) {
+    else if (GameManager::sharedState()->getGameVariable(GameVar::AlwaysLimitControls)) {
         if (m_playerTouchID2 == -1) {
             m_playerTouchID2 = touch->getID();
             m_editorLayer->queueButton(1, true, true, touch->getTimestamp());
@@ -278,8 +279,7 @@ gd::string EditorUI::copyObjectsDetailed(cocos2d::CCArray* objects) {
     });
     auto groupCenter = this->getGroupCenter(objects, false);
     std::string result = "";
-    for (auto obj : geode::cocos::CCArrayExt<cocos2d::CCObject*, false>(objects)) {
-        auto object = static_cast<GameObject*>(obj);
+    for (auto object : geode::cocos::CCArrayExt<GameObject, false>(objects)) {
         if (object->m_objectID == 749) continue;
         auto position = object->getPosition();
         object->setPosition(position - groupCenter);
@@ -587,8 +587,8 @@ cocos2d::CCPoint EditorUI::positionWithoutOffset(GameObject* object) {
 void EditorUI::recreateButtonTabs() {
     m_reloadItems = false;
     auto gameManager = GameManager::sharedState();
-    auto buttonsPerRow = gameManager->getIntGameVariable("0049");
-    auto buttonRows = gameManager->getIntGameVariable("0050");
+    auto buttonsPerRow = gameManager->getIntGameVariable(GameVar::EditorButtonsPerRow);
+    auto buttonRows = gameManager->getIntGameVariable(GameVar::EditorButtonRows);
     for (int i = 0; i < m_createButtonBars->count(); i++) {
         static_cast<EditButtonBar*>(m_createButtonBars->objectAtIndex(i))->reloadItems(buttonsPerRow, buttonRows);
     }
@@ -635,8 +635,8 @@ void EditorUI::showLiveColorSelectForModeSpecial(int colorID) {
         m_selectedObject->deselectObject();
     }
     else {
-        for (auto obj : geode::cocos::CCArrayExt<cocos2d::CCObject*, false>(m_selectedObjects)) {
-            static_cast<GameObject*>(obj)->deselectObject();
+        for (auto object : geode::cocos::CCArrayExt<GameObject, false>(m_selectedObjects)) {
+            object->deselectObject();
         }
     }
     this->showLiveColorSelectForMode(colorID);
@@ -702,8 +702,8 @@ void EditorUI::transformObjectsReset() {
 
 void EditorUI::updateStickyControls() {
     auto gameManager = GameManager::sharedState();
-    m_stickyControlsEnabled = gameManager->getGameVariable("0097");
-    m_linkControlsDisabled = gameManager->getGameVariable("0180");
+    m_stickyControlsEnabled = gameManager->getGameVariable(GameVar::LinkControls);
+    m_linkControlsDisabled = gameManager->getGameVariable(GameVar::LinkControlsQuickToggle);
     m_enableLinkBtn->setEnabled(m_stickyControlsEnabled);
     m_enableLinkBtn->setVisible(m_stickyControlsEnabled);
     m_linkBtn->setEnabled(m_stickyControlsEnabled);

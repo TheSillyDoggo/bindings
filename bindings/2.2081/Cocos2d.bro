@@ -1,5 +1,3 @@
-#import ios <Geode/cocos/particle_nodes/firePngData.h>
-
 [[link(win, android)]]
 class CCContentManager : cocos2d::CCObject {
     static CCContentManager* sharedManager() = imac 0x184200, m1 0x1491c0, ios 0x4126ac;
@@ -669,7 +667,7 @@ class cocos2d::CCCatmullRomTo : cocos2d::CCCardinalSplineTo {
 
 [[link(win, android)]]
 class cocos2d::CCClippingNode : cocos2d::CCNode {
-    CCClippingNode() = imac 0x71efd0, m1 0x6320b0;
+    protected CCClippingNode() = imac 0x71efd0, m1 0x6320b0;
     virtual ~CCClippingNode() = imac 0x71f050, m1 0x632108;
 
     static cocos2d::CCClippingNode* create() = imac 0x71f120, m1 0x6321c0;
@@ -1677,7 +1675,7 @@ class cocos2d::CCImage : cocos2d::CCObject {
 
 [[link(win, android)]]
 class cocos2d::CCIMEDelegate {
-    CCIMEDelegate() = imac 0x4bbc20, m1 0x41be44, ios 0x1d3818;
+    protected CCIMEDelegate() = imac 0x4bbc20, m1 0x41be44, ios 0x1d3818;
     virtual ~CCIMEDelegate() = imac 0x4bbe20, m1 0x41c054, ios 0x1d3958;
 
     virtual bool attachWithIME() = imac 0x4bbfa0, m1 0x41c1bc, ios 0x1d3a0c;
@@ -1689,7 +1687,7 @@ class cocos2d::CCIMEDispatcher {
     CCIMEDispatcher();
     ~CCIMEDispatcher();
 
-    static cocos2d::CCIMEDispatcher* sharedDispatcher() = imac 0x4bbd10, m1 0x41bf40;
+    static cocos2d::CCIMEDispatcher* sharedDispatcher() = imac 0x4bbd10, m1 0x41bf40, ios 0x1d3858;
 
     void addDelegate(cocos2d::CCIMEDelegate*);
     bool attachDelegateWithIME(cocos2d::CCIMEDelegate*);
@@ -1741,7 +1739,7 @@ class cocos2d::CCJumpTo : cocos2d::CCActionInterval {
     virtual void startWithTarget(cocos2d::CCNode* pTarget) = imac 0x3b9730, m1 0x33bd10, ios inline;
 }
 
-[[link(win, android)]]
+[[link(win, android, ios)]]
 class cocos2d::CCKeyboardDispatcher : cocos2d::CCObject {
     // bool getAltKeyPressed() const;
     // bool getBlockRepeat() const;
@@ -1750,17 +1748,19 @@ class cocos2d::CCKeyboardDispatcher : cocos2d::CCObject {
     // bool getShiftKeyPressed() const;
     // void setBlockRepeat(bool);
     // CCKeyboardDispatcher(cocos2d::CCKeyboardDispatcher const&);
+    [[link(win, android)]]
     CCKeyboardDispatcher() = imac 0x203250, m1 0x1b0168;
+    [[link(win, android)]]
     virtual ~CCKeyboardDispatcher() = imac 0x2032d0, m1 0x1b01e0;
 
     static cocos2d::enumKeyCodes convertKeyCode(cocos2d::enumKeyCodes) = imac 0x203870, m1 0x1b07d0;
 
-    void addDelegate(cocos2d::CCKeyboardDelegate*); // ios 0x23996, m1 0x1b043c, imac 0x203530;
+    void addDelegate(cocos2d::CCKeyboardDelegate*) = m1 0x1b043c, imac 0x203530;
     bool dispatchKeyboardMSG(cocos2d::enumKeyCodes, bool, bool, double) = imac 0x2035b0, m1 0x1b04d4;
-    void forceAddDelegate(cocos2d::CCKeyboardDelegate*); // ios 0x2399a, m1 0x1b0498, imac 0x203580;
-    void forceRemoveDelegate(cocos2d::CCKeyboardDelegate*); // ios 0x2398c, m1 0x1b03a8, imac 0x2034a0;
+    void forceAddDelegate(cocos2d::CCKeyboardDelegate*) = m1 0x1b0498, imac 0x203580;
+    void forceRemoveDelegate(cocos2d::CCKeyboardDelegate*) = m1 0x1b03a8, imac 0x2034a0;
     char const* keyToString(cocos2d::enumKeyCodes) = imac 0x2038c0, m1 0x1b0804;
-    void removeDelegate(cocos2d::CCKeyboardDelegate*); // ios 0x23988, m1 0x1b02e0, imac 0x2033f0;
+    void removeDelegate(cocos2d::CCKeyboardDelegate*) = m1 0x1b02e0, imac 0x2033f0;
     void updateModifierKeys(bool, bool, bool, bool) = imac 0x203890, m1 0x1b07ec;
 
     cocos2d::CCArray* m_pDelegates;
@@ -1776,17 +1776,18 @@ class cocos2d::CCKeyboardDispatcher : cocos2d::CCObject {
     bool m_bBlockRepeat;
 }
 
-[[link(win, android)]]
+[[link(win, android, ios)]]
 class cocos2d::CCKeyboardHandler : cocos2d::CCObject {
 
-    virtual ~CCKeyboardHandler() = imac 0x43e0b0, m1 0x3afb5c, ios 0x216958;
+    [[link(win, android)]]
+    virtual ~CCKeyboardHandler() = imac 0x43e0b0, m1 0x3afb5c;
 
-    static cocos2d::CCKeyboardHandler* handlerWithDelegate(cocos2d::CCKeyboardDelegate*) = imac 0x43e290, m1 0x3afd24, ios 0x216a0c;
+    static cocos2d::CCKeyboardHandler* handlerWithDelegate(cocos2d::CCKeyboardDelegate*) = imac 0x43e290, m1 0x3afd24;
 
-    virtual bool initWithDelegate(cocos2d::CCKeyboardDelegate*) = imac 0x43e240, m1 0x3afcd0, ios 0x2169c4;
+    virtual bool initWithDelegate(cocos2d::CCKeyboardDelegate*) = imac 0x43e240, m1 0x3afcd0;
 
-    cocos2d::CCKeyboardDelegate* getDelegate() = imac 0x43e0a0, m1 0x3afb54, ios 0x216950;
-    void setDelegate(cocos2d::CCKeyboardDelegate*) = imac 0x43e1d0, m1 0x3afc64, ios inline;
+    cocos2d::CCKeyboardDelegate* getDelegate() = imac 0x43e0a0, m1 0x3afb54;
+    void setDelegate(cocos2d::CCKeyboardDelegate*) = imac 0x43e1d0, m1 0x3afc64;
 }
 
 [[link(win, android)]]
@@ -5828,7 +5829,7 @@ class cocos2d::extension::CCTableViewCell : cocos2d::CCNode, cocos2d::extension:
 
 [[link(win, android)]]
 class cocos2d::ZipUtils {
-    static gd::string base64DecodeEnc(gd::string const&, gd::string);
+    static gd::string base64DecodeEnc(gd::string const&, gd::string) = m1 0x1b1a48, imac 0x205880, ios 0x23dd7c;
     static gd::string base64EncodeEnc(gd::string const&, gd::string) = imac 0x205ac0, m1 0x1b1cbc, ios 0x23dfa0;
     static gd::string base64URLDecode(gd::string const&) = imac 0x205d00, m1 0x1b1f2c, ios 0x23e200;
     static gd::string base64URLEncode(gd::string const&) = imac 0x205de0, m1 0x1b2038, ios 0x23e2f0;
@@ -5875,12 +5876,12 @@ class DS_Dictionary {
     gd::vector<cocos2d::CCRect> getRectArrayForKey(char const*);
     cocos2d::CCRect getRectForKey(char const*);
     gd::vector<gd::string> getStringArrayForKey(char const*);
-    gd::string getStringForKey(char const*) = m1 0x14341c;
+    gd::string getStringForKey(char const*) = m1 0x14341c, imac 0x17dc90, ios 0x161ae8;
     gd::vector<cocos2d::CCPoint> getVec2ArrayForKey(char const*);
     cocos2d::CCPoint getVec2ForKey(char const*);
     bool loadRootSubDictFromCompressedFile(char const*);
     bool loadRootSubDictFromFile(char const*);
-    bool loadRootSubDictFromString(gd::string const&) = m1 0x141010, ios 0x161058;
+    bool loadRootSubDictFromString(gd::string const&) = m1 0x141010, imac 0x17b200, ios 0x161058;
     bool rectFromString(gd::string const&, cocos2d::CCRect&);
     void removeAllKeys();
     void removeKey(char const*);
@@ -5915,7 +5916,7 @@ class DS_Dictionary {
     void split(gd::string const&, char const*, gd::vector<gd::string>&);
     bool splitWithForm(gd::string const&, gd::vector<gd::string>&);
     void stepBackToRootSubDict();
-    bool stepIntoSubDictWithKey(char const*) = imac 0x17ce10, ios 0x161520;
+    bool stepIntoSubDictWithKey(char const*) = m1 0x14274c, imac 0x17ce10, ios 0x161520;
     void stepOutOfSubDict() = imac 0x17d020, m1 0x1428f4, ios inline;
     bool vec2FromString(gd::string const&, cocos2d::CCPoint&);
 }
@@ -5939,7 +5940,7 @@ class pugi::xml_document : pugi::xml_node {
 
 [[link(android)]]
 class pugi::xml_node {
-    // i'm not bothering
-    xml_node() = inline;
+    xml_node() = win 0x724f0, m1 0x55ccd4, imac 0x63b3c0, ios 0x3ab440;
+    ~xml_node() = inline;
 }
 

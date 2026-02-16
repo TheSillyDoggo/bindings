@@ -1,4 +1,4 @@
-#include <Geode/Geode.hpp>
+#include <Geode/Bindings.hpp>
 
 LevelSearchLayer::LevelSearchLayer() {
     m_type = 0;
@@ -22,11 +22,6 @@ char const* LevelSearchLayer::getTimeKey(int time) {
 
 void LevelSearchLayer::onClose(cocos2d::CCObject* sender) {
     m_searchInput->onClickTrackNode(false);
-}
-
-void LevelSearchLayer::onStarAward(cocos2d::CCObject* sender) {
-    this->onClose(nullptr);
-    cocos2d::CCDirector::sharedDirector()->pushScene(cocos2d::CCTransitionFade::create(.5f, LevelBrowserLayer::scene(this->getSearchObject(SearchType::Sends, ""))));
 }
 #endif
 

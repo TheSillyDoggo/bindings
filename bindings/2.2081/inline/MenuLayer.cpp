@@ -1,4 +1,4 @@
-#include <Geode/Geode.hpp>
+#include <Geode/Bindings.hpp>
 
 MenuLayer* MenuLayer::get() {
     return GameManager::get()->m_menuLayer;
@@ -36,7 +36,7 @@ void MenuLayer::tryShowAd(float dt) {
 #if defined(GEODE_IS_WINDOWS)
 void MenuLayer::onGameCenter(cocos2d::CCObject* sender) {
     auto gameManager = GameManager::sharedState();
-    if (gameManager->getGameVariable("0034")) {
+    if (gameManager->getGameVariable(GameVar::EnableGameCenter)) {
         gameManager->syncPlatformAchievements();
         PlatformToolbox::showAchievements();
     }

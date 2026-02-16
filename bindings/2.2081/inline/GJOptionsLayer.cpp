@@ -1,4 +1,4 @@
-#include <Geode/Geode.hpp>
+#include <Geode/Bindings.hpp>
 
 #if !defined(GEODE_IS_WINDOWS) && !defined(GEODE_IS_IOS)
 GJOptionsLayer::GJOptionsLayer() {
@@ -60,6 +60,13 @@ cocos2d::CCPoint GJOptionsLayer::nextPosition(int page) {
     cocos2d::CCPoint pos = winSize * .5f + cocos2d::CCPoint { count % 2 == 0 ? -160.f : 80.f, m_offset + 80.f };
     if (count > 1) pos.y -= floorf(count / 2.f) * m_gap;
     return pos;
+}
+#endif
+
+#if defined(GEODE_IS_IOS)
+CCMenuItemToggler* GJOptionsLayer::getToggleButton(int id) {
+    auto it = m_toggleButtons.find(id);
+    return it != m_toggleButtons.end() ? it->second : nullptr;
 }
 #endif
 

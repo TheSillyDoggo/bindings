@@ -1,4 +1,5 @@
-#include <Geode/Geode.hpp>
+#include <Geode/Bindings.hpp>
+#include <Geode/utils/cocos.hpp>
 
 GameManager* GameManager::get() {
     return GameManager::sharedState();
@@ -385,7 +386,7 @@ void GameManager::didExitPlayscene() {
     if (this->m_unkBool8) {
         this->m_unkBool8 = false;
         if (cocos2d::CCDirector::sharedDirector()->getSmoothFixCounter() >= 10) {
-            this->setGameVariable("0023", false);
+            this->setGameVariable(GameVar::SmoothFix, false);
         }
     }
 }
@@ -459,8 +460,8 @@ const char* GameManager::getMGTexture(int index) {
 int GameManager::getNextUniqueObjectKey() {
     auto customKeys = this->getOrderedCustomObjectKeys();
     auto result = -1;
-    for (auto obj : geode::cocos::CCArrayExt<cocos2d::CCObject*, false>(customKeys)) {
-        auto key = static_cast<cocos2d::CCString*>(obj)->intValue();
+    for (auto str : geode::cocos::CCArrayExt<cocos2d::CCString, false>(customKeys)) {
+        auto key = str->intValue();
         if (key < result) result = key;
     }
     return result;
@@ -624,9 +625,9 @@ void GameManager::loadMiddlegroundAsync(int index) {
 
 void GameManager::loadVideoSettings() {
     auto application = cocos2d::CCApplication::sharedApplication();
-    application->toggleVerticalSync(this->getGameVariable("0030"));
-    application->setForceTimer(this->getGameVariable("0032"));
-    application->setSmoothFix(this->getGameVariable("0023"));
+    application->toggleVerticalSync(this->getGameVariable(GameVar::VerticalSync));
+    application->setForceTimer(this->getGameVariable(GameVar::ForceTimer));
+    application->setSmoothFix(this->getGameVariable(GameVar::SmoothFix));
 }
 
 void GameManager::lockColor(int id, UnlockType type) {
