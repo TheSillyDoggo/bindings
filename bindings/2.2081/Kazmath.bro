@@ -53,7 +53,7 @@ kmVec3* const kmMat3RotationToAxisAngle(kmVec3*, float*, kmMat3 const*);
 [[link(win, android)]]
 kmMat4* const kmMat4Fill(kmMat4*, float const*);
 [[link(win, android)]]
-kmMat4* const kmMat4Identity(kmMat4*);
+kmMat4* const kmMat4Identity(kmMat4*) = m1 0x352508, imac 0x3d26a0, ios 0x3b2a40;
 [[link(win, android)]]
 kmMat4* const kmMat4Inverse(kmMat4*, kmMat4 const*);
 [[link(win, android)]]

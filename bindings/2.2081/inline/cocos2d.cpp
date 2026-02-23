@@ -1,5 +1,10 @@
 #include <Geode/Bindings.hpp>
 
+#if defined(GEODE_IS_MACOS) || defined(GEODE_IS_IOS)
+cocos2d::CCPoint ccpCompOp(cocos2d::CCPoint const& p, float (*opFunc)(float)) {
+    return ccp(opFunc(p.x), opFunc(p.y));
+}
+#endif
 
 #if defined(GEODE_IS_WINDOWS) || defined(GEODE_IS_IOS)
 #endif
@@ -56,6 +61,29 @@ cocos2d::CCPoint cocos2d::ccpFromSize(cocos2d::CCSize const& size) {
 
 float cocos2d::ccpToAngle(cocos2d::CCPoint const& point) {
     return point.getAngle();
+}
+
+bool cocos2d::ccpFuzzyEqual(cocos2d::CCPoint const& a, cocos2d::CCPoint const& b, float var) {
+	return a.fuzzyEquals(b, var);
+}
+
+cocos2d::CCPoint cocos2d::ccpCompMult(cocos2d::CCPoint const& a, cocos2d::CCPoint const& b) {
+    return ccp(a.x * b.x, a.y * b.y);
+}
+
+float cocos2d::ccpAngleSigned(cocos2d::CCPoint const& a, cocos2d::CCPoint const& b) {
+	return a.getAngle(b);
+}
+
+bool cocos2d::ccpSegmentIntersect(cocos2d::CCPoint const& a, cocos2d::CCPoint const& b, cocos2d::CCPoint const& c, cocos2d::CCPoint const& d) {
+    float s;
+    float t;
+    return ccpLineIntersect(a, b, c, d, &s, &t) && (s >= 0.0f && s <= 1.0f && t >= 0.0f && t <= 1.0f);
+}
+
+float cocos2d::ccpAngle(cocos2d::CCPoint const& a, cocos2d::CCPoint const& b) {
+    auto angle = acosf(ccpDot(ccpNormalize(a), ccpNormalize(b)));
+    return fabs(angle) < FLT_EPSILON ? 0.f : angle;
 }
 #endif
 
