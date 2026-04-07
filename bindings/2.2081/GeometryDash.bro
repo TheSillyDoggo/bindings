@@ -3636,7 +3636,7 @@ class EditorUI : cocos2d::CCLayer, FLAlertLayerProtocol, ColorSelectDelegate, GJ
     bool canSelectObject(GameObject* object) = win 0x110310, imac 0x3c090, m1 0x3453c, ios 0x3ed510;
     void centerCameraOnObject(GameObject* object) = win inline, imac 0x335b0, m1 0x30454, ios 0x3ea128;
     void changeSelectedObjects(cocos2d::CCArray* objects, bool ignoreFilter) = win inline, imac 0x3cb00, m1 0x34ec4, ios 0x3edde4;
-    void checkDiffAfterTransformAnchor(cocos2d::CCPoint diff, cocos2d::CCArray* objects) = win 0x115980, imac 0x41060, m1 0x38f1c, ios 0x3f0810;
+    cocos2d::CCPoint checkDiffAfterTransformAnchor(cocos2d::CCPoint diff, cocos2d::CCArray* objects) = win 0x115980, imac 0x41060, m1 0x38f1c, ios 0x3f0810;
     void checkLiveColorSelect() = win 0x110630, imac 0x3c660, m1 0x34ad0, ios 0x3eda58;
     void clickOnPosition(cocos2d::CCPoint position) = win 0xe26e0, imac 0x2da70, m1 0x2ac2c, ios 0x3e66f8;
     void closeLiveColorSelect() = win 0x11efa0, imac 0x3c7c0, m1 0x34c08, ios inline;
@@ -6051,6 +6051,7 @@ class GameManager : GManager {
     bool m_unkBool7;
     bool m_unkBool8;
     geode::SeedValueRSV m_hasRP;
+    bool m_hasDRP;
     bool m_canGetLevelSaveData;
     int m_resolution;
     int m_texQuality;
@@ -6094,6 +6095,7 @@ class GameManager : GManager {
     bool m_shouldResetShader;
     cocos2d::CCPoint m_practicePos;
     float m_practiceOpacity;
+    int m_unk664;
 }
 
 [[link(android)]]
@@ -8951,6 +8953,7 @@ class GJGameState {
     int m_unkUint5;
     int m_unkUint6;
     int m_unkUint7;
+    int m_unkUint8; // i don't know
     GameObject* m_lastActivatedPortal1;
     GameObject* m_lastActivatedPortal2;
     cocos2d::CCPoint m_cameraPosition;
@@ -14104,7 +14107,7 @@ class PlatformToolbox {
     static void reportAchievementWithID(char const* key, int percent) = imac 0x4c3e10, m1 0x42378c, ios 0x16b830;
     static void reportLoadingFinished() = win inline, imac 0x4c3d30, m1 0x423748, ios 0x16b7fc;
     static void resizeWindow(float width, float height) = win inline, imac 0x4c4b80, m1 0x4242cc, ios 0x16bc70;
-    static void saveAndEncryptStringToFile(gd::string& str, char const* dirPath, char const* fileName) = imac 0x4c3ec0, m1 0x4237fc, ios 0x16b924;
+    static void saveAndEncryptStringToFile(gd::string& str, char const* fileName, char const* dirPath) = imac 0x4c3ec0, m1 0x4237fc, ios 0x16b924;
     static void sendMail(char const* title, char const* content, char const* address) = win inline, imac 0x4c3e50, m1 0x4237c0, ios 0x16b838;
     static void setBlockBackButton(bool block) = win inline, imac 0x4c3d90, m1 0x423760, ios inline;
     static void setKeyboardState(bool state) = win inline, imac 0x4c3d70, m1 0x423758, ios 0x16b80c;
@@ -14602,6 +14605,21 @@ class PlayerObject : GameObject, AnimatedSpriteDelegate {
     bool usingWallLimitedMode() = win inline, imac 0x41b920, m1 0x3906a0, ios inline;
     void yStartDown() = win inline, imac 0x41d670, m1 0x391c4c, ios inline;
     void yStartUp() = win inline, imac 0x41d650, m1 0x391c2c, ios inline;
+
+    /// @note geode addition
+    /// @note this will return false for PlayerObjects in MenuGameLayer
+    /// @note this might break if you call from PlayerObject::init
+    bool isVanillaPlayer() = inline;
+
+    /// @note geode addition
+    /// @note this will return false for PlayerObjects in MenuGameLayer
+    /// @note this might break if you call from PlayerObject::init
+    bool isPlayer1() = inline;
+
+    /// @note geode addition
+    /// @note this will return false for PlayerObjects in MenuGameLayer
+    /// @note this might break if you call from PlayerObject::init
+    bool isPlayer2() = inline;
 
     cocos2d::CCNode* m_mainLayer;
     bool m_wasTeleported;
