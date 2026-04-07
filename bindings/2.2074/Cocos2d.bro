@@ -7399,7 +7399,7 @@ class cocos2d::CCGridBase : cocos2d::CCObject {
     static cocos2d::CCGridBase* create(cocos2d::CCSize const&, cocos2d::CCTexture2D*, bool) = m1 0x434e6c, imac 0x4d0700;
     static cocos2d::CCGridBase* create(cocos2d::CCSize const&) = m1 0x434cb4, imac 0x4d0550;
 
-    virtual ~CCGridBase() = m1 0x434ffc, imac 0x4d0890, ios inline {};
+    virtual ~CCGridBase() = m1 0x434ffc, imac 0x4d0890, ios inline { }
 
     void setActive(bool) = m1 0x4350d8, imac 0x4d0980;
     void setTextureFlipped(bool) = m1 0x435100, imac 0x4d09b0;
