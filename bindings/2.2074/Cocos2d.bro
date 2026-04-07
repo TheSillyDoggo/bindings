@@ -7409,9 +7409,9 @@ class cocos2d::CCGridBase : cocos2d::CCObject {
     void afterDraw(cocos2d::CCNode*) = m1 0x4351d0, imac 0x4d0a90, ios 0x341d08;
     void set2DProjection() = m1 0x435120, imac 0x4d09d0;
 
-    virtual void blit() = m1 0x43529c, imac 0x4d0b50;
-    virtual void reuse() = m1 0x4352a0, imac 0x4d0b60;
-    virtual void calculateVertexPoints() = m1 0x4352a4, imac 0x4d0b70;
+    virtual void blit() = m1 0x43529c, imac 0x4d0b50, ios inline { }
+    virtual void reuse() = m1 0x4352a0, imac 0x4d0b60, ios inline { }
+    virtual void calculateVertexPoints() = m1 0x4352a4, imac 0x4d0b70, ios inline { }
 }
 
 [[link(win, android)]]
