@@ -7405,8 +7405,8 @@ class cocos2d::CCGridBase : cocos2d::CCObject {
     void setTextureFlipped(bool) = m1 0x435100, imac 0x4d09b0;
     bool initWithSize(cocos2d::CCSize const&, cocos2d::CCTexture2D*, bool) = m1 0x434f28, imac 0x4d07d0;
     bool initWithSize(cocos2d::CCSize const&) = m1 0x434d78, imac 0x4d0610;
-    void beforeDraw() = m1 0x43519c, imac 0x4d0a60;
-    void afterDraw(cocos2d::CCNode*) = m1 0x4351d0, imac 0x4d0a90;
+    void beforeDraw() = m1 0x43519c, imac 0x4d0a60, ios 0x341cd4;
+    void afterDraw(cocos2d::CCNode*) = m1 0x4351d0, imac 0x4d0a90, ios 0x341d08;
     void set2DProjection() = m1 0x435120, imac 0x4d09d0;
 
     virtual void blit() = m1 0x43529c, imac 0x4d0b50;
