@@ -3,7 +3,7 @@
 std::string generateTextInterface(Root const& root) {
     std::string output;
 
-    for (auto& c : root.classes) {        
+    for (auto& c : root.classes) {
         for (auto& f : c.fields) {
             if (auto fn = f.get_as<FunctionBindField>()) {
                 auto status = codegen::getStatus(*fn);
@@ -14,7 +14,7 @@ std::string generateTextInterface(Root const& root) {
 
                 if (
                     (
-                        (status == BindStatus::Unbindable || status == BindStatus::Missing) && 
+                        (status == BindStatus::Unbindable || status == BindStatus::Missing) &&
                         codegen::platformNumber(fn->binds) == -1
                     ) || (
                         codegen::platformNumber(fn->binds) == 0x9999999
@@ -40,7 +40,7 @@ std::string generateTextInterface(Root const& root) {
 
         if (
             (
-                (status == BindStatus::Unbindable || status == BindStatus::Missing) && 
+                (status == BindStatus::Unbindable || status == BindStatus::Missing) &&
                 codegen::platformNumber(f.binds) == -1
             ) || (
                 codegen::platformNumber(f.binds) == 0x9999999
@@ -60,12 +60,14 @@ std::string generateTextInterface(Root const& root) {
 
 static matjson::Value bindingOnPlatform(Platform p, FunctionBindField const* fn) {
     auto status = codegen::getStatusWithPlatform(p, *fn);
-    if (status == BindStatus::Inlined) {
-        return "inline";
+    switch (status) {
+        case BindStatus::Inlined: return "inline";
+        case BindStatus::Binded: return "link";
+        case BindStatus::NeedsRebinding: return "rebind";
+        case BindStatus::Missing: return "missing";
+        default: break;
     }
-    if (status == BindStatus::Binded) {
-        return "link";
-    }
+
     auto addr = codegen::platformNumberWithPlatform(p, fn->binds);
     if (addr >= 0) {
         return addr;
@@ -75,12 +77,14 @@ static matjson::Value bindingOnPlatform(Platform p, FunctionBindField const* fn)
 
 static matjson::Value bindingOnPlatform(Platform p, Function const& fn) {
     auto status = codegen::getStatusWithPlatform(p, fn);
-    if (status == BindStatus::Inlined) {
-        return "inline";
+    switch (status) {
+        case BindStatus::Inlined: return "inline";
+        case BindStatus::Binded: return "link";
+        case BindStatus::NeedsRebinding: return "rebind";
+        case BindStatus::Missing: return "missing";
+        default: break;
     }
-    if (status == BindStatus::Binded) {
-        return "link";
-    }
+
     auto addr = codegen::platformNumberWithPlatform(p, fn.binds);
     if (addr >= 0) {
         return addr;
@@ -90,11 +94,13 @@ static matjson::Value bindingOnPlatform(Platform p, Function const& fn) {
 
 matjson::Value generateJsonInterface(Root const& root) {
     std::vector<matjson::Value> classes;
-    
-    for (auto& c : root.classes) {        
-        // Array because 
+
+    for (auto& c : root.classes) {
+        // Array because
         std::vector<matjson::Value> functions;
         std::vector<matjson::Value> fields;
+        std::vector<matjson::Value> bases;
+
         for (auto& f : c.fields) {
             if (auto fn = f.get_as<FunctionBindField>()) {
                 std::vector<matjson::Value> args;
@@ -141,10 +147,15 @@ matjson::Value generateJsonInterface(Root const& root) {
                 }));
             }
         }
+        for (auto& sc : c.superclasses) {
+            bases.push_back(sc);
+        }
+
         classes.push_back(matjson::makeObject({
             { "name", c.name },
             { "functions", functions },
             { "fields", fields },
+            { "bases", bases },
             { "source", std::filesystem::path(c.source).filename().string() },
             { "line", c.line },
         }));
