@@ -14064,11 +14064,11 @@ class HardStreak : cocos2d::CCDrawNode {
     virtual bool init() = win 0x3bfa70, imac 0x64080, m1 0x5d0a8, ios 0x65fa0;
 
     void addPoint(cocos2d::CCPoint point) = win 0x3c0710, imac 0x64dd0, m1 0x5dbbc, ios 0x66810;
-    void appendQuad(cocos2d::CCPoint const* vertices, cocos2d::ccColor4F const& color) = win 0x3c0560;
+    void appendQuad(cocos2d::CCPoint const* vertices, cocos2d::ccColor4F const& color) = win 0x3c0560, ios 0x669dc, m1 0x5dc68, imac 0x64e90;
     void clearAboveXPos(float x) = win inline, imac 0x651b0, m1 0x5df34, ios 0x66c64;
     void clearBehindXPos(float x) = win inline, imac 0x65110, m1 0x5de9c, ios 0x66bcc;
     HardStreak* createDuplicate() = win inline, imac 0x65360, m1 0x5e118;
-    TodoReturn ensureQuadCapacity(unsigned int);
+    void ensureQuadCapacity(unsigned int capacity) = ios 0x66acc;
     void firstSetup() = win inline, ios 0x65fe0;
     double normalizeAngle(double angle) = win inline, imac 0x65330, m1 0x5e0e4, ios inline;
     cocos2d::CCPoint quadCornerOffset(cocos2d::CCPoint start, cocos2d::CCPoint end, float width) = win inline, imac 0x65250, m1 0x5dfcc;
